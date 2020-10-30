@@ -34,13 +34,8 @@ void setup() {
 }
 
 void draw() { 
-
-  //Centers Display Window
-  if (centered == false) {
-    surface.setLocation(displayWidth/2 - width/2, displayHeight/2 - height/2);
-    centered = true;
-  }//end center
-
+  centerWindow();
+  
   //Averages _ALL_ Pixel Colours of Source Image
   loadPixels();
   source.loadPixels();
@@ -174,8 +169,8 @@ void draw() {
 }
 
 void centerWindow() {
-  if (frame != null && centered == false) {
-    frame.setLocation(displayWidth/2 - width/2, displayHeight/2 - height/2);
+  if (centered == false) {
+    surface.setLocation(displayWidth/2 - width/2, displayHeight/2 - height/2);
     centered = true;
   }
 }
