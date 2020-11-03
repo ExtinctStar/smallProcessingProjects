@@ -81,7 +81,6 @@ void draw() {
   //int yEnd = constrain(pmouseY + boxW/2, 0, blankImg.height);
   //println("xStart: " + xStart + " xEnd: " + xEnd + " yStart: " + yStart + " yEnd: " + yEnd);
 
-
   int xStart = constrain(blankImg.width/2 + xBox - boxW/2, 0, blankImg.width);
   int yStart = constrain(blankImg.height/2 + yBox - boxW/2, 0, blankImg.height);
   int xEnd = constrain(blankImg.width/2 + xBox + boxW/2, 0, blankImg.width);
@@ -178,7 +177,7 @@ void keyPressed(){
         xBox = constrain(xBox - scale, -(blankImg.width/2) + (boxW/2), (blankImg.width/2) - (boxW/2));
     }
     if (keyCode == RIGHT){
-      if(xBox > -(blankImg.width/2) + (boxW/2))
+      if(xBox < (blankImg.width/2) + (boxW/2))
         xBox = constrain(xBox + scale, -(blankImg.width/2) + (boxW/2), (blankImg.width/2) - (boxW/2));
     }
   }
