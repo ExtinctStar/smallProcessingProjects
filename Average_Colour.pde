@@ -16,9 +16,9 @@ PImage blankImg;
 
 PImage boundBox;
 int boxW = 80;
+int[] boxCenter = new int[2];
 int xBox = 0;
 int yBox = 0;
-
 
 boolean centered;
 
@@ -33,6 +33,8 @@ void setup() {
 
   blankImg = createImage(source.width, source.height, RGB);
   boundBox = createImage(boxW, boxW, RGB);
+  boxCenter[0] = blankImg.width / 2;
+  boxCenter[1] = blankImg.height / 2;
 
   centered = false;
 }
@@ -75,17 +77,18 @@ void draw() {
   //end drawing _ALL_ avg colour
   
   //Mouse Bounding Box
-  //int xStart = constrain(pmouseX - boxW/2, 0, blankImg.width);
-  //int yStart = constrain(pmouseY - boxW/2, 0, blankImg.height);
-  //int xEnd = constrain(pmouseX + boxW/2, 0, blankImg.width);
-  //int yEnd = constrain(pmouseY + boxW/2, 0, blankImg.height);
+  int xStart = constrain(boxCenter[0] + xBox - boxW/2, 0, blankImg.width);
+  int yStart = constrain(boxCenter[1] + yBox - boxW/2, 0, blankImg.height);
+  int xEnd = constrain(boxCenter[0] + xBox + boxW/2, 0, blankImg.width);
+  int yEnd = constrain(boxCenter[1] + yBox + boxW/2, 0, blankImg.height);
   //println("xStart: " + xStart + " xEnd: " + xEnd + " yStart: " + yStart + " yEnd: " + yEnd);
 
-  int xStart = constrain(blankImg.width/2 + xBox - boxW/2, 0, blankImg.width);
-  int yStart = constrain(blankImg.height/2 + yBox - boxW/2, 0, blankImg.height);
-  int xEnd = constrain(blankImg.width/2 + xBox + boxW/2, 0, blankImg.width);
-  int yEnd = constrain(blankImg.height/2 + yBox + boxW/2, 0, blankImg.height);
-
+  //To Allow for Clicking on screen to Choose a Section while taking to account our Arrow Key Movements using keyPressed()
+  if(mousePressed){
+    boxCenter[0] = constrain(pmouseX - xBox, 0 - xBox, blankImg.width - xBox);
+    boxCenter[1] = constrain(pmouseY - yBox, 0 - yBox, blankImg.height - yBox);
+  }
+  
   int bbIndex = 0;
   boundBox.loadPixels();
   for (int x = xStart; x < xEnd; x++) {
@@ -109,7 +112,6 @@ void draw() {
       }
     }
   }
-  //bbIndex = 0;
   boundBox.updatePixels();
 
   bb_rAvg /= bbCount;
@@ -165,20 +167,24 @@ void keyPressed(){
   int scale = 10;
   if(key == CODED){
     if (keyCode == UP){
-      if(yBox > -(blankImg.height/2) + (boxW/2))
-        yBox = constrain(yBox - scale, -(blankImg.height/2) + (boxW/2), (blankImg.height/2) - (boxW/2));
+      if(yBox > boxW/2 - boxCenter[1]){
+        yBox = constrain(yBox - scale, boxW/2 - boxCenter[1], blankImg.height - boxCenter[1] - (boxW/2));
+      }
     }
     if (keyCode == DOWN){
-      if(yBox < (blankImg.height/2) - (boxW/2)) //yBox += scale;
-        yBox = constrain(yBox + scale, -(blankImg.height/2) + (boxW/2), (blankImg.height/2) - (boxW/2));
+      if(yBox < (blankImg.height - boxCenter[1] - (boxW/2))){
+        yBox = constrain(yBox + scale, boxW/2 - boxCenter[1], blankImg.height - boxCenter[1] - (boxW/2));
+      }
     }
     if (keyCode == LEFT){
-      if(xBox > -(blankImg.width/2) + (boxW/2))
-        xBox = constrain(xBox - scale, -(blankImg.width/2) + (boxW/2), (blankImg.width/2) - (boxW/2));
+      if(xBox > boxW/2 - boxCenter[0]){
+        xBox = constrain(xBox - scale, boxW/2 - boxCenter[0], blankImg.width - boxCenter[0] - (boxW/2));
+      }
     }
     if (keyCode == RIGHT){
-      if(xBox < (blankImg.width/2) + (boxW/2))
-        xBox = constrain(xBox + scale, -(blankImg.width/2) + (boxW/2), (blankImg.width/2) - (boxW/2));
+      if(xBox < (blankImg.width - boxCenter[0] - (boxW/2))){
+        xBox = constrain(xBox + scale, boxW/2 - boxCenter[0], blankImg.width - boxCenter[0] - (boxW/2));
+      }
     }
   }
 }
