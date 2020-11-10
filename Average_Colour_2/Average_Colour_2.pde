@@ -4,8 +4,6 @@ boolean centered;
 
 Box boxControl;
 
-//float rAvg, gAvg, bAvg;
-
 void setup(){
   size(100, 100);
   source = loadImage("trees.jpg");
@@ -30,9 +28,15 @@ void draw(){
   getPixels(0, 0, blankImg.width, blankImg.height);
   color avgColour = findAvgColour(0, 0, blankImg.width, blankImg.height);
   //println("R: " + red(avgColour) + " G: " + green(avgColour) + " B: " + blue(avgColour));
-  
   drawAvgColour(width/2, blankImg.height/2, width, blankImg.height, avgColour);
   
+  boxControl.getPixels();
+  color boxAvgColour = boxControl.avgColour();
+  drawAvgColour(width/2, 0, width, blankImg.height/2, boxAvgColour);
+  
+  if(mousePressed){
+    boxControl.mouseMovement();
+  }
   //boxControl.drawBorder();
   //boxControl.boxDraw(pmouseX, pmouseY);
   //boxControl.boxDraw(width/2 , height/2);
@@ -50,11 +54,6 @@ void centerWindow(){
 void keyPressed(){
   boxControl.keyMovement();
 }//End keyPressed()
-
-
-void mousePressed(){
-  boxControl.mouseMovement();
-}//End mousePressed()
 
 
 void getPixels(int _x1, int _y1, int _x2, int _y2){
