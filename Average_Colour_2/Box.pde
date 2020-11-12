@@ -4,10 +4,10 @@
  * Object used as the Interactive Selection Box 
  * for finding the Average Colour of a Selection 
  * @param boundBox: Pixel Array Image to hold object's pixels
- * @params x1, y1, x2, y2: Two pairs of coordinates to hold the dimensions of boundBox 
+ * @params x1 y1 x2 y2: Two pairs of coordinates to hold the dimensions of boundBox 
  * @param boxCenter: Array to hold the coordinates of the center of boundBox
  * @param size: The size (in pixels) of one side of boundBox used to create a square
- * @params xFactor, yFactor:
+ * @params xFactor yFactor:
  *          Integer used to record arrow key interaction with Box in 
  *          order to keep Box Selection within the bounds of the Original Image
  **************************************************************************************/
