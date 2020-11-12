@@ -2,6 +2,8 @@ PImage source;
 PImage blankImg;
 boolean centered;
 
+int boxSize;
+
 Box boxControl;
 
 void setup(){
@@ -13,7 +15,7 @@ void setup(){
   
   blankImg = createImage(source.width, source.height, RGB);
   
-  int boxSize = 80;
+  boxSize = 80;
   boxControl = new Box(boxSize);
   
   centered = false;
@@ -26,20 +28,18 @@ void draw(){
   centerWindow();
   
   getPixels(0, 0, blankImg.width, blankImg.height);
+  boxControl.drawBorder();
   color avgColour = findAvgColour(0, 0, blankImg.width, blankImg.height);
   //println("R: " + red(avgColour) + " G: " + green(avgColour) + " B: " + blue(avgColour));
   drawAvgColour(width/2, blankImg.height/2, width, blankImg.height, avgColour);
   
-  boxControl.getPixels();
+  boxControl.boxGetPixels();
   color boxAvgColour = boxControl.avgColour();
   drawAvgColour(width/2, 0, width, blankImg.height/2, boxAvgColour);
   
   if(mousePressed){
     boxControl.mouseMovement();
   }
-  //boxControl.drawBorder();
-  //boxControl.boxDraw(pmouseX, pmouseY);
-  //boxControl.boxDraw(width/2 , height/2);
 }//end draw()
 
 
@@ -58,7 +58,6 @@ void keyPressed(){
 
 void getPixels(int _x1, int _y1, int _x2, int _y2){
   loadPixels();
-  
   source.loadPixels();
   blankImg.loadPixels();
   
