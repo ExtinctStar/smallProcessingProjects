@@ -10,4 +10,4 @@ Average_Colour is a project designed with two main functions:
   1) Find the Mean Colour of an entire Image
   2) Find the Mean Colour of a selected area within an Image
 
-Average_Colour is also designed to show the mean average as well as any other ancillary information to the user.
+Average_Colour is also designed to show the Mean Colour Value(s), as well as any other ancillary information, to the user.
