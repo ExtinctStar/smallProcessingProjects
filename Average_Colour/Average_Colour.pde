@@ -20,12 +20,15 @@ int[] boxCenter = new int[2];
 int xBox = 0;
 int yBox = 0;
 
+String T1 = "trees.jpg";
+String T2 = "coconutTree.jpg";
+
 boolean centered;
 
 void setup() {
   //640, 426 -> 1280, 426
   size(100, 100);
-  source = loadImage("trees.jpg");
+  source = loadImage(T2);
   //println("Source Width: " + source.width + " | Source Height: " + source.height);
   surface.setResizable(true);
   surface.setSize(source.width * 2, source.height);
@@ -76,6 +79,7 @@ void draw() {
   drawAvgColour(width/2, blankImg.height/2, width, blankImg.height, rAvg, gAvg, bAvg);
   //end drawing _ALL_ avg colour
   
+  println("xBox: " + xBox + " | yBox: " + yBox);
   //Mouse Bounding Box
   int xStart = constrain(boxCenter[0] + xBox - boxW/2, 0, blankImg.width);
   int yStart = constrain(boxCenter[1] + yBox - boxW/2, 0, blankImg.height);
@@ -83,10 +87,10 @@ void draw() {
   int yEnd = constrain(boxCenter[1] + yBox + boxW/2, 0, blankImg.height);
   //println("xStart: " + xStart + " xEnd: " + xEnd + " yStart: " + yStart + " yEnd: " + yEnd);
 
-  //To Allow for Clicking on screen to Choose a Section while taking to account our Arrow Key Movements using keyPressed()
+  //To Allow for Clicking on screen to Choose a Se--ction while taking to account our Arrow Key Movements using keyPressed()
   if(mousePressed){
-    boxCenter[0] = constrain(pmouseX - xBox, 0 - xBox, blankImg.width - xBox);
-    boxCenter[1] = constrain(pmouseY - yBox, 0 - yBox, blankImg.height - yBox);
+    boxCenter[0] = constrain(pmouseX - xBox, 0 - xBox + boxW/2, blankImg.width - xBox - boxW/2);
+    boxCenter[1] = constrain(pmouseY - yBox, 0 - yBox + boxW/2, blankImg.height - yBox - boxW/2);
   }
   
   int bbIndex = 0;
@@ -125,7 +129,11 @@ void draw() {
   //To the Top Left of the Average Colour Area
   int bbXOffset = 10;
   int bbYOffset = 30;
-  int bbXStart = width/2 + bbXOffset;
+  //int bbXStart = width/2 + bbXOffset;
+  //int bbXEnd = bbXStart + boxW;
+  //int bbYStart = bbYOffset;
+  //int bbYEnd = bbYStart + boxW;
+  int bbXStart = width - bbXOffset - boxW;
   int bbXEnd = bbXStart + boxW;
   int bbYStart = bbYOffset;
   int bbYEnd = bbYStart + boxW;
