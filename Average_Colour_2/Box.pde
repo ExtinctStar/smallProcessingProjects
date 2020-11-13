@@ -94,8 +94,6 @@ class Box{
     boxCenter[1] = constrain(pmouseY - yFactor, 0 - yFactor + halfSize, blankImg.height - yFactor - halfSize);
     
     updatePosition(boxCenter[0], boxCenter[1]);
-    
-    //boxGetPixels();
   }//end mouseMovement()
   
   
@@ -115,8 +113,6 @@ class Box{
     
     boundBox.updatePixels();
     updatePixels();
-    
-    //drawBorder();
   }//end getPixels()
   
   
@@ -126,4 +122,24 @@ class Box{
     
     return boxAvgColour;
   }//end avgColour
+  
+  void copyAt(int xCenter, int yCenter){
+    int _x1 = xCenter - halfSize;
+    int _y1 = yCenter - halfSize;
+    int _x2 = xCenter + halfSize;
+    int _y2 = yCenter + halfSize;
+    
+    loadPixels();
+    boundBox.loadPixels();
+    
+    int boxIndex = 0;
+    for (int x = _x1; x < _x2; x++){
+      for (int y = _y1; y < _y2; y++){
+        int index = x+y*width;
+        
+        pixels[index] = boundBox.pixels[boxIndex]
+        boxIndex++;
+      }//y
+    }//x
+  }//end copyAt()
 }//End Box Class
