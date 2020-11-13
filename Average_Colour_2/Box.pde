@@ -44,12 +44,12 @@ class Box{
   }//end updatePosition()
   
   
-  void drawBorder(){
+  void drawBorder(int _xCenter, int _yCenter){
     stroke(0);
     strokeWeight(2);
     noFill();
-    rectMode(CORNERS);
-    rect(x1-1, y1-1, x2-1, y2-1);
+    rectMode(CENTER);
+    rect(_xCenter, _yCenter, size+2, size+2);
   }//end drawBorder()
   
   
@@ -113,6 +113,8 @@ class Box{
     
     boundBox.updatePixels();
     updatePixels();
+    
+    drawBorder(boxCenter[0], boxCenter[1]);
   }//end getPixels()
   
   
@@ -141,5 +143,7 @@ class Box{
         boxIndex++;
       }//y
     }//x
+    
+    drawBorder(xCenter, yCenter);
   }//end copyAt()
 }//End Box Class
