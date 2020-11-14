@@ -32,20 +32,18 @@ void draw(){
   //println("R: " + red(avgColour) + " G: " + green(avgColour) + " B: " + blue(avgColour));
   drawAvgColour(width/2, blankImg.height/2, width, blankImg.height, avgColour);
   
-  //NEW Comments
-  //Currently I am calculating the average colour of boxControl using pixel array directly
-  //Maybe rethink boxControl.avgColour to use a given PImage pixel array, other boxGetPixels is not needed
-  boxControl.boxGetPixels();
-  boxControl.drawBorder();
   color boxAvgColour = boxControl.avgColour();
   drawAvgColour(width/2, 0, width, blankImg.height/2, boxAvgColour);
   
   if(mousePressed){
     boxControl.mouseMovement();
   }
-  //NEW
+  
   rgbMenu(blankImg.width, height - 20, avgColour);
   rgbMenu(blankImg.width, 0, boxAvgColour);
+  
+  boxControl.boxGetPixels();
+  boxControl.copyAt(width - boxSize - 10, 30);
 }//end draw()
 
 
@@ -125,7 +123,6 @@ void drawAvgColour(int _x1, int _y1, int _x2, int _y2, color _rgb){
   updatePixels();
 }//end drawAvgColour()
 
-//NEW
 void rgbMenu(int _x1, int _y1, color _rgb) {
   int _x2 = width;
   int _y2 = _y1 + 20;
@@ -134,9 +131,9 @@ void rgbMenu(int _x1, int _y1, color _rgb) {
   strokeWeight(1);
   fill(255);
   rectMode(CORNERS);
-  rect(x1, y1, x2, y2);
+  rect(_x1, _y1, _x2, _y2);
 
-  rgb_DrawList(x, y, _rgb);
+  rgbDrawList(_x1, _y1, _rgb);
 }//end rgbMenu()
 
 
@@ -148,4 +145,3 @@ void rgbDrawList(int x, int y, color _rgb) {
   text("R: " + round(red(_rgb)) + " | G: " + round(green(_rgb)) + " | B: " + round(blue(_rgb)) +
     " || Hex: " + hex(_rgb, 6), x + 5, y + 3);
 }//end rgbDrawList()
-//NEW
