@@ -44,12 +44,15 @@ class Box{
   }//end updatePosition()
   
   
-  void drawBorder(){
+  void drawBorder(int _x1, int _y1){
+    int _x2 = _x1 + size;
+    int _y2 = _y1 + size;
+  
     stroke(0);
     strokeWeight(2);
     noFill();
     rectMode(CORNERS);
-    rect(x1-1, y1-1, x2-1, y2-1);
+    rect(_x1-2, _y1-2, _x2+1, _y2+1);
   }//end drawBorder()
   
   
@@ -94,8 +97,6 @@ class Box{
     boxCenter[1] = constrain(pmouseY - yFactor, 0 - yFactor + halfSize, blankImg.height - yFactor - halfSize);
     
     updatePosition(boxCenter[0], boxCenter[1]);
-    
-    //boxGetPixels();
   }//end mouseMovement()
   
   
@@ -116,7 +117,7 @@ class Box{
     boundBox.updatePixels();
     updatePixels();
     
-    //drawBorder();
+    drawBorder(x1, y1);
   }//end getPixels()
   
   
@@ -126,4 +127,26 @@ class Box{
     
     return boxAvgColour;
   }//end avgColour
+  
+  
+  void copyAt(int _x1, int _y1){
+    int _x2 = _x1 + size;
+    int _y2 = _y1 + size;
+    
+    loadPixels();
+    boundBox.loadPixels();
+    
+    int boxIndex = 0;
+    for (int x = _x1; x < _x2; x++){
+      for (int y = _y1; y < _y2; y++){
+        int index = x+y*width;
+        
+        pixels[index] = boundBox.pixels[boxIndex];
+        boxIndex++;
+      }//y
+    }//x
+    
+    updatePixels();
+    drawBorder(_x1, _y1);
+  }//end copyAt()
 }//End Box Class
