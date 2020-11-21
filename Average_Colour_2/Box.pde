@@ -36,24 +36,12 @@ class Box{
   }//end Constructor
   
   
-  void updatePosition(int xCenter, int yCenter){
-    x1 = constrain(xCenter - halfSize + xFactor, 0, blankImg.width);
-    y1 = constrain(yCenter - halfSize + yFactor, 0, blankImg.height);
-    x2 = constrain(xCenter + halfSize + xFactor, 0, blankImg.width);
-    y2 = constrain(yCenter + halfSize + yFactor, 0, blankImg.height);
-  }//end updatePosition()
-  
-  
-  void drawBorder(int _x1, int _y1){
-    int _x2 = _x1 + size;
-    int _y2 = _y1 + size;
-  
-    stroke(0);
-    strokeWeight(2);
-    noFill();
-    rectMode(CORNERS);
-    rect(_x1-2, _y1-2, _x2+1, _y2+1);
-  }//end drawBorder()
+  color avgColour(){
+    color boxAvgColour = findAvgColour(x1, y1, x2, y2);
+    //println("R: " + red(boxAvgColour) + " G: " + green(boxAvgColour) + " B: " + blue(boxAvgColour));
+    
+    return boxAvgColour;
+  }//end avgColour
   
   
   void keyMovement(){
@@ -100,6 +88,14 @@ class Box{
   }//end mouseMovement()
   
   
+  void updatePosition(int xCenter, int yCenter){
+    x1 = constrain(xCenter - halfSize + xFactor, 0, blankImg.width);
+    y1 = constrain(yCenter - halfSize + yFactor, 0, blankImg.height);
+    x2 = constrain(xCenter + halfSize + xFactor, 0, blankImg.width);
+    y2 = constrain(yCenter + halfSize + yFactor, 0, blankImg.height);
+  }//end updatePosition()
+  
+  
   void boxGetPixels(){
     loadPixels();
     boundBox.loadPixels();
@@ -119,14 +115,6 @@ class Box{
     
     drawBorder(x1, y1);
   }//end getPixels()
-  
-  
-  color avgColour(){
-    color boxAvgColour = findAvgColour(x1, y1, x2, y2);
-    //println("R: " + red(boxAvgColour) + " G: " + green(boxAvgColour) + " B: " + blue(boxAvgColour));
-    
-    return boxAvgColour;
-  }//end avgColour
   
   
   void copyAt(int _x1, int _y1){
@@ -149,4 +137,16 @@ class Box{
     updatePixels();
     drawBorder(_x1, _y1);
   }//end copyAt()
+  
+  
+  void drawBorder(int _x1, int _y1){
+    int _x2 = _x1 + size;
+    int _y2 = _y1 + size;
+  
+    stroke(0);
+    strokeWeight(2);
+    noFill();
+    rectMode(CORNERS);
+    rect(_x1-2, _y1-2, _x2+1, _y2+1);
+  }//end drawBorder()
 }//End Box Class

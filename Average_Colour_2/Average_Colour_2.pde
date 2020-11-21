@@ -1,14 +1,17 @@
 PImage source;
 PImage blankImg;
 boolean centered;
+PFont UIFont;
 
 int boxSize;
 
 Box boxControl;
 
+String imageFileName = "coconutSmall.jpg";
+
 void setup(){
   size(100, 100);
-  source = loadImage("trees.jpg");
+  source = loadImage(imageFileName);
   surface.setResizable(true);
   surface.setSize(source.width * 2, source.height);
   surface.setResizable(false);
@@ -19,6 +22,8 @@ void setup(){
   boxControl = new Box(boxSize);
   
   centered = false;
+  
+  UIFont = createFont("Arial Bold", 14);
 }//end setup()
 
 
@@ -45,6 +50,12 @@ void draw(){
   boxControl.boxGetPixels();
   boxControl.copyAt(width - boxSize - 10, 30);
 }//end draw()
+/***********************************************************************************/
+/***********************************************************************************/
+
+void keyPressed(){
+  boxControl.keyMovement();
+}//End keyPressed()
 
 
 void centerWindow(){
@@ -53,11 +64,6 @@ void centerWindow(){
     centered = true;
   }
 }//End centerWindow()
-
-
-void keyPressed(){
-  boxControl.keyMovement();
-}//End keyPressed()
 
 
 void getPixels(int _x1, int _y1, int _x2, int _y2){
@@ -139,8 +145,8 @@ void rgbMenu(int _x1, int _y1, color _rgb) {
 
 void rgbDrawList(int x, int y, color _rgb) { 
   fill(0);
-  textSize(12);
   textAlign(LEFT, TOP);
+  textFont(UIFont);
   
   text("R: " + round(red(_rgb)) + " | G: " + round(green(_rgb)) + " | B: " + round(blue(_rgb)) +
     " || Hex: " + hex(_rgb, 6), x + 5, y + 3);
