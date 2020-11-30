@@ -38,7 +38,6 @@ class Box{
   
   color avgColour(){
     color boxAvgColour = findAvgColour(x1, y1, x2, y2);
-    //println("R: " + red(boxAvgColour) + " G: " + green(boxAvgColour) + " B: " + blue(boxAvgColour));
     
     return boxAvgColour;
   }//end avgColour
@@ -107,8 +106,8 @@ class Box{
         
         boundBox.pixels[boxIndex] = pixels[index];
         boxIndex++;
-      }
-    }
+      }//x
+    }//y
     
     boundBox.updatePixels();
     updatePixels();
