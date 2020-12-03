@@ -1,3 +1,15 @@
+/************************************************************************************
+ * Button Object Class
+ * @author Cody Martin
+ * Object used as the Import Button to import an image to process
+ * @params x1, y1, x2, y2: Values that hold the coordinates of the Button
+ * @param buttonString: The text that displays on the button
+ * @param mouseHover: Holds if the mouse is hovering within the bounds of the Button
+ * @param buttonClick: Holds if the button has been Clicked and returns false after
+ *                     User selects an image to import
+ * @param curve: Value for the level of curvature of the corners of the rectangle
+ *               comprising the body of the button
+ ***********************************************************************************/
 class Button{
   int x1, y1, x2, y2;
   String buttonString; 
@@ -73,7 +85,7 @@ class Button{
   
   void pause(){
     buttonClick = true;
-  }//end click()
+  }//end pause()
   
   
   void resume(){
